@@ -5,32 +5,54 @@ import ReactDOM from 'react-dom'
 
 //Valor constante
 const x = 5
-
+console.log(x)
 //Valor variable
 let y = 10
-
+console.log(y)
 //________________________________________________________ARRAYS
+console.log("__________INTRODUCCION A LOS ARRAYS__________")
 
 const ar = [1,2,3] 
 
 ar.push(10)
-console.log(ar.length())
-console.log(ar[2])
+console.log("La longitud del array es: " + ar.length)
+console.log("El tercer valor es: "+ar[2])
 
+let contador = 1
 ar.forEach(value =>{
-  console.log(value)
+  console.log(`En el array ar el valor en la posicion ${contador} es: ${value}`)
+  contador++
 })
+
+//Buena practica para añadir valores a un array
+const ar2 = ar.concat(20)
+
+console.log(ar)
+console.log(ar2)
+
+
+//Mapeo de arrays
+const m1 = ar.map(value  => `El valor ${value} multiplicado por 10 es igual a: ` + (value *10))
+
+console.log(m1)
+
+//Construir cadenas HTML con el mapeo de arrays
+const m2 = ar.map(value => `<li>${value}<li/>`)
+console.log(m2)
+
 
 //Destructuracion de arrays
 const t = [1,2,3,4,5]
 const [primero, segundo, tercero, ...rest] = t
 
-/* console.log(primero)
+console.log(primero)
 console.log(segundo)
 console.log(tercero)
-console.log(rest) */
+console.log(rest)
 
 //________________________________________________________OBJETOS
+console.log("__________INTRODUCCION A LOS OBJETOS__________")
+
 const objeto1 = {
   nombreCompleto: {
     nombre: "daniel",
@@ -61,12 +83,61 @@ console.log(objeto1['direccion'])
 console.log(objeto1.constrasenaUltraSecreta)
 
 //________________________________________________________FUNCIONES
+console.log("__________INTRODUCCION A LAS FUNCIONES__________")
+//FUNCIONES FLECHA
 
-//Funcion Flecha completa
-c
+//con mas de un parametro
+const sum = (p1, p2) => {
+  console.log(p1)
+  console.log(p2)
+  return p1 + p2
+}
+
+const result = sum(1,5)
+
+console.log(`El resultado de la suma es: ${result}`)
+
+//con solo un parametro
+const cuadrado = numero => {
+  //console.log(numero)
+  return numero * numero
+}
+
+const resultadoCuadrado = cuadrado(3)
+console.log(`El resultado del cuadrado es: ${resultadoCuadrado}`)
+
+//con solo una expresion
+const cuadradoEz = numero => numero * numero
+
+console.log(`El resultado del cuadrado es: ${cuadradoEz(10)}`)
+
+const ar3 = [1,2,3]
+const ar3AlCuadrado = ar3.map(number => cuadrado(number))
+console.log(ar3AlCuadrado)
+
+
+//REFERANCIAR FUNCIONES
+
+//Nombre en la declaracion de la función
+function multiplicacion(a ,b) {
+  return a * b
+}
+
+const resultadoMultiplicación = multiplicacion(3,4)
+console.log(resultadoMultiplicación)
+
+
+//Expresion de funcion
+const calcularMedia = (a, b) => {
+  return (a+b) / 2
+}
+const resultadoMedia = calcularMedia(234, 45)
+console.log(resultadoMedia)
+
+
 
 const Header = (props) =>{
-  
+  console.log(props)
   return(
     <h1>{props.course}</h1>
   )
@@ -98,13 +169,21 @@ const Total = (props) => {
 
 const App = () => {
   const course = 'Half Stack desarrollo de aplicaciones'
-  const part1 = 'Fundamentos de react'
-  const exercises1 = 10
-  const part2 = 'Usando los props para enviar datos'
-  const exercises2 = 7
-  const part3 = 'El estado de un componente'
-  const exercises3 = 14
-  const totalExercises = exercises1 + exercises2 + exercises3
+  
+  const part1 ={
+    nombre:'Fundamentos de react',
+    ejercicios:10
+  } 
+  const part2 ={
+    nombre:'Usando los props para enviar datos',
+    ejercicios:7
+  } 
+  const part3 ={
+    nombre:'El estado de un componente',
+    ejercicios:14
+  } 
+
+  const totalExercises = part1.ejercicios + part2.ejercicios + part3.ejercicios
 
 
 
@@ -113,12 +192,12 @@ const App = () => {
     <div>
       <Header course = {course}/>
       <Content 
-        part1 = {part1} 
-        part2 = {part2} 
-        part3 = {part3} 
-        exercises1 = {exercises1}
-        exercises2 = {exercises2}
-        exercises3 = {exercises3}
+        part1 = {part1.nombre} 
+        part2 = {part2.nombre} 
+        part3 = {part3.nombre} 
+        exercises1 = {part1.ejercicios}
+        exercises2 = {part2.ejercicios}
+        exercises3 = {part3.ejercicios}
       />
       <Total totalExercises = {totalExercises}/>
     </div>
