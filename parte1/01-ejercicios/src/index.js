@@ -212,7 +212,7 @@ const App = () => {
   console.log(`EJERCICIOS TOTALES:   ${ejerciciosTotales}`)
 
 
-
+console.log("holoooo")
 
   return (
     <div>
