@@ -134,7 +134,21 @@ const calcularMedia = (a, b) => {
 const resultadoMedia = calcularMedia(234, 45)
 console.log(resultadoMedia)
 
+const dani = {
+  nombre: 'dani',
+  age: 35,
+  education: 'developer',
+  saludo: function () {
+    console.log(`Hola mi nombre es ${this.nombre}`)
+  } 
+}
 
+dani.saludo()
+
+
+
+//*******************EJERCICIOS****************** */
+console.log("_________________EJERCICIOS_____________________")
 
 const Header = (props) =>{
   console.log(props)
@@ -144,46 +158,58 @@ const Header = (props) =>{
 }
 
 const Content = (props) => {
+  console.log(props)
+  console.log(`Los props de Content son: ${props.partes[0]['nombre']}`)
   return(
     <>
-      <Part part = {props.part1} exercises = {props.exercises1}/>
-      <Part part = {props.part2} exercises = {props.exercises2}/>
-      <Part part = {props.part3} exercises = {props.exercises3}/>
+      <Part nombre = {props.partes[0]['nombre']} ejercicios = {props.partes[0]['ejercicios']}/>
+      <Part nombre = {props.partes[1]['nombre']} ejercicios = {props.partes[1]['ejercicios']}/>
+      <Part nombre = {props.partes[2]['nombre']} ejercicios = {props.partes[2]['ejercicios']}/>
     </>
   )
 }
 
 const Part = (props) => {
+  console.log(`Los props de Part son: ${props}`)
+  console.log(props)
   return(
     <p>
-      {props.part} {props.exercises}
+      La parte de: {props.nombre}, tiene: {props.ejercicios} ejercicios
     </p>
   )
 }
 
 const Total = (props) => {
   return(
-    <p>Numero de ejercicios {props.totalExercises}</p>
+    <p>Numero de ejercicios totales: {props.totalExercises}</p>
   )
 }
 
 const App = () => {
   const course = 'Half Stack desarrollo de aplicaciones'
   
-  const part1 ={
+  const parts =[
+  {
     nombre:'Fundamentos de react',
     ejercicios:10
-  } 
-  const part2 ={
+  }, 
+  {
     nombre:'Usando los props para enviar datos',
     ejercicios:7
-  } 
-  const part3 ={
+  },
+  {
     nombre:'El estado de un componente',
     ejercicios:14
-  } 
+  }]
 
-  const totalExercises = part1.ejercicios + part2.ejercicios + part3.ejercicios
+  let ejerciciosTotales = 0
+
+  parts.forEach(value =>{
+    ejerciciosTotales = ejerciciosTotales + value.ejercicios
+    console.log(ejerciciosTotales)
+  })
+
+  console.log(`EJERCICIOS TOTALES:   ${ejerciciosTotales}`)
 
 
 
@@ -191,15 +217,8 @@ const App = () => {
   return (
     <div>
       <Header course = {course}/>
-      <Content 
-        part1 = {part1.nombre} 
-        part2 = {part2.nombre} 
-        part3 = {part3.nombre} 
-        exercises1 = {part1.ejercicios}
-        exercises2 = {part2.ejercicios}
-        exercises3 = {part3.ejercicios}
-      />
-      <Total totalExercises = {totalExercises}/>
+      <Content partes = {parts}/>
+      <Total totalExercises = {ejerciciosTotales}/>
     </div>
   )
 }
