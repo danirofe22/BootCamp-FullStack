@@ -161,6 +161,71 @@ referenciaAHacerSuma(33, 54)
 
 setTimeout(dani.saludo(), 1000)
 
+//________________________________________________________ METODOS DE OBJETO Y "THIS"
+console.log("__________METODOS DE OBJETO Y THIS__________")
+//REFERENCIA POR "THIS"
+
+const vehicle = {
+  type: "car",
+  model: "ferrari",
+  //Creo un metodo dentro del objecto al cual puedo llamar
+  print: function() {
+    console.log("that is a "+ this.model)
+  },
+  doAddition: function(a, b){
+    console.log(`the result is ${a+b}`)
+  }
+}
+//llamo al metodo
+vehicle.print()
+
+//Puedo crear un metodo para el objeto desde fuera del objeto
+vehicle.start = function() {
+  console.log("the car start up")
+}
+
+vehicle.start()
+
+vehicle.doAddition(8,3)
+
+//Cuando hacemos la referencia al metodo perdemos lo que era el this por ello la maquina no conoce a model
+
+//No hace referencia a ninguna propiedad del objeto
+const referenceToDoAddition = vehicle.doAddition
+
+referenceToDoAddition(12,6)
+
+//Otro ejemplo de perder el valor de this en la ejecucion
+//setTimeout(vehicle.print, 2000)
+
+//La solucion es usar el metodo bind que hace que se conserve el this
+
+setTimeout(vehicle.print.bind(vehicle), 2000)
+
+//No funciona porque el modelo del objeto al que hace referencia la funcion es undefined
+/* const referenceToStart = vehicle.print
+referenceToStart() */
+
+//________________________________________________________ CLASES
+console.log("__________CLASES__________")
+
+
+class person {
+  constructor(name, age){
+    this.name = name
+    this.age = age
+  }
+  greet(){
+    console.log(`Hello, my name is ${this.name} and i am ${this.age}`)
+  }
+}
+
+const adam = new person("adam", 33)
+adam.greet()
+
+const papu = new person('papu', 23)
+papu.greet()
+
 
 //*******************EJERCICIOS****************** */
 console.log("_________________EJERCICIOS_____________________")
@@ -197,44 +262,39 @@ const Content = (props) => {
 
 
 const Total = (props) => {
+  let ejerciciosTotales = 0
+
+  props.partes.forEach(value =>{
+    ejerciciosTotales = ejerciciosTotales + value.ejercicios
+  })
   return(
-    <p>Numero de ejercicios totales: {props.totalExercises}</p>
+    <p>Numero de ejercicios totales: {ejerciciosTotales}</p>
   )
 }
 
 const App = () => {
-  const course = 'Half Stack desarrollo de aplicaciones'
-  
-  const parts =[
-  {
-    nombre:'Fundamentos de react',
-    ejercicios:10
-  }, 
-  {
-    nombre:'Usando los props para enviar datos',
-    ejercicios:7
-  },
-  {
-    nombre:'El estado de un componente',
-    ejercicios:14
-  }]
-
-  let ejerciciosTotales = 0
-
-  parts.forEach(value =>{
-    ejerciciosTotales = ejerciciosTotales + value.ejercicios
-    console.log(ejerciciosTotales)
-  })
-
-  console.log(`EJERCICIOS TOTALES:   ${ejerciciosTotales}`)
-
-
+  const course = {
+    name: 'Half Stack desarrollo de aplicaciones',
+    parts: [
+    {
+      nombre:'Fundamentos de react',
+      ejercicios:10
+    }, 
+    {
+      nombre:'Usando los props para enviar datos',
+      ejercicios:7
+    },
+    {
+      nombre:'El estado de un componente',
+      ejercicios:14
+    }]
+  }
 
   return (
     <div>
-      <Header course = {course}/>
-      <Content partes = {parts}/>
-      <Total totalExercises = {ejerciciosTotales}/>
+      <Header course = {course.name}/>
+      <Content partes = {course.parts}/>
+      <Total partes = {course.parts}/>
     </div>
   )
 }
