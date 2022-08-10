@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 
 //________________________________________________________VARIABLES
 
@@ -140,11 +140,26 @@ const dani = {
   education: 'developer',
   saludo: function () {
     console.log(`Hola mi nombre es ${this.nombre}`)
-  } 
+  },
+  hacerSuma: function(a, b){
+    console.log(`La suma es: ${a+b}`)
+  }
 }
 
 dani.saludo()
 
+dani.cumpleaños = function(){
+  this.age += 1
+  console.log(this.age)
+}
+dani.cumpleaños()
+
+dani.hacerSuma(33,85)
+
+const referenciaAHacerSuma = dani.hacerSuma
+referenciaAHacerSuma(33, 54)
+
+setTimeout(dani.saludo(), 1000)
 
 
 //*******************EJERCICIOS****************** */
@@ -157,19 +172,7 @@ const Header = (props) =>{
   )
 }
 
-const Content = (props) => {
-  console.log(props)
-  console.log(`Los props de Content son: ${props.partes[0]['nombre']}`)
-  return(
-    <>
-      <Part nombre = {props.partes[0]['nombre']} ejercicios = {props.partes[0]['ejercicios']}/>
-      <Part nombre = {props.partes[1]['nombre']} ejercicios = {props.partes[1]['ejercicios']}/>
-      <Part nombre = {props.partes[2]['nombre']} ejercicios = {props.partes[2]['ejercicios']}/>
-    </>
-  )
-}
-
-const Part = (props) => {
+const Parte = (props) => {
   console.log(`Los props de Part son: ${props}`)
   console.log(props)
   return(
@@ -178,6 +181,20 @@ const Part = (props) => {
     </p>
   )
 }
+
+const Content = (props) => {
+  console.log(props)
+  console.log(`Los props de Content son: ${props.partes[0]['nombre']}`)
+  return(
+    <>
+      <Parte nombre = {props.partes[0].nombre} ejercicios = {props.partes[0].ejercicios}/>
+      <Parte nombre = {props.partes[1].nombre} ejercicios = {props.partes[1].ejercicios}/>
+      <Parte nombre = {props.partes[2].nombre} ejercicios = {props.partes[2].ejercicios}/>
+    </>
+  )
+}
+
+
 
 const Total = (props) => {
   return(
@@ -212,7 +229,6 @@ const App = () => {
   console.log(`EJERCICIOS TOTALES:   ${ejerciciosTotales}`)
 
 
-console.log("holooooddd")
 
   return (
     <div>
@@ -223,4 +239,5 @@ console.log("holooooddd")
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />)
