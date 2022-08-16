@@ -209,7 +209,7 @@ referenceToStart() */
 //________________________________________________________ CLASES
 console.log("__________CLASES__________")
 
-
+ff  
 class person {
   constructor(name, age){
     this.name = name
