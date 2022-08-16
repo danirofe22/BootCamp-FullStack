@@ -1,17 +1,49 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+import ReactDOM from 'react-dom'
+import React, {useState} from 'react'
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const App = () => {
+  const [counter, setCounter] = useState(0)
+
+/*   setTimeout(
+    () => setCounter(counter + 1), 
+    10000
+  ); */
+
+  const pulsar = () => {
+    console.log('pulsado');
+  }
+
+
+
+  console.log(`rendering... ${counter}`);
+
+  return (
+    <>
+      {counter}
+
+      <button onClick={(pulsar)}>
+        pulsar
+      </button>
+    </>
+  )
+}
+
+let counter = 1
+
+
+  ReactDOM.render(
+    <App counter={counter} />, 
+    document.getElementById('root')
+  ) 
+
+/*counter += 1 
+refresh()
+counter += 1 
+refresh()
+
+
+setInterval(()=>{
+  refresh()
+  counter += 1
+},1000) */
