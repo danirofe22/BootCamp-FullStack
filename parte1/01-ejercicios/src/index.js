@@ -229,49 +229,46 @@ papu.greet()
 //*******************EJERCICIOS****************** */
 console.log("_________________EJERCICIOS_____________________")
 
-const Header = (props) =>{
-  console.log(props)
-  return(
-    <h1>{props.course}</h1>
+
+
+const Header = ({course, style}) => {
+  return (
+    <h1 style = {style}>{course}</h1>
   )
 }
 
-const Parte = (props) => {
-  console.log(`Los props de Part son: ${props}`)
-  console.log(props)
-  return(
-    <p>
-      La parte de: {props.nombre}, tiene: {props.ejercicios} ejercicios
-    </p>
-  )
-}
+const Parte = ({nombre, ejercicios}) => <p>La parte de: {nombre}, tiene: {ejercicios} ejercicios</p>
 
-const Content = (props) => {
-  console.log(props)
-  console.log(`Los props de Content son: ${props.partes[0]['nombre']}`)
+const Content = ({partes, color}) => {
+
   return(
     <>
-      <Parte nombre = {props.partes[0].nombre} ejercicios = {props.partes[0].ejercicios}/>
-      <Parte nombre = {props.partes[1].nombre} ejercicios = {props.partes[1].ejercicios}/>
-      <Parte nombre = {props.partes[2].nombre} ejercicios = {props.partes[2].ejercicios}/>
+      <Parte nombre = {partes[0].nombre} ejercicios = {partes[0].ejercicios} color = {color}/>
+      <Parte nombre = {partes[1].nombre} ejercicios = {partes[1].ejercicios} color = {color}/>
+      <Parte nombre = {partes[2].nombre} ejercicios = {partes[2].ejercicios} color = {color}/>
     </>
   )
 }
 
-
-
-const Total = (props) => {
+const Total = ({partes}) => {
   let ejerciciosTotales = 0
 
-  props.partes.forEach(value =>{
+  partes.forEach(value =>{
     ejerciciosTotales = ejerciciosTotales + value.ejercicios
   })
+
   return(
     <p>Numero de ejercicios totales: {ejerciciosTotales}</p>
   )
 }
 
 const App = () => {
+
+  const titleStyle = {
+    color: 'blue',
+    background: 'red'
+  };
+
   const course = {
     name: 'Half Stack desarrollo de aplicaciones',
     parts: [
@@ -291,9 +288,9 @@ const App = () => {
 
   return (
     <div>
-      <Header course = {course.name}/>
-      <Content partes = {course.parts}/>
-      <Total partes = {course.parts}/>
+      <Header course = {course.name} style = {titleStyle}/>
+      <Content partes = {course.parts} color = "green"/>
+      <Total partes = {course.parts} color = 'blue'/>
     </div>
   )
 }
