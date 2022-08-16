@@ -2,16 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 
-const Hello = (props)  => {
-  const bornYear = () => {
-    const yearNow = new Date().getFullYear()
-    return yearNow - props.age
-  }
-
+const Hello = ({name, age})  => {
+  
+  const bornYear = () => new Date().getFullYear() - age
+  
   return(
     <>
       <p>
-        Hola mi nombre es {props.name}, y tengo {props.age} años
+        Hola mi nombre es {name}, y tengo {age} años
       </p>
       <p>
         Seguramente hayas nacido en el año {bornYear()}
