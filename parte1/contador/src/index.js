@@ -2,38 +2,53 @@
 import ReactDOM from 'react-dom'
 import React, {useState} from 'react'
 
-const App = () => {
-  const [counter, setCounter] = useState(0)
+const Contador = ({contador}) => <h1>{contador}</h1>
 
-/*   setTimeout(
-    () => setCounter(counter + 1), 
-    10000
-  ); */
-
-  const pulsar = () => {
-    console.log('pulsado');
-  }
-
-
-
-  console.log(`rendering... ${counter}`);
-
-  return (
+const Boton = ({action, text}) => {
+  return(
     <>
-      {counter}
-
-      <button onClick={(pulsar)}>
-        pulsar
+      <button onClick={action}>
+        {text}
       </button>
     </>
   )
 }
 
-let counter = 1
+
+const App = () => {
+  const [counter, setCounter] = useState(0)
+
+  const incrementar  = () => setCounter(counter +1);
+  const restablecer = () => setCounter(0);
+  const restar = () => setCounter(counter - 1)
+
+  return (
+    <>
+      <Contador contador = {counter}/>
+      <Boton 
+        action = {incrementar} 
+        text = "incrementar"
+      />
+      
+      <Boton 
+        action = {restablecer} 
+        text = "restablecer"
+      />
+
+      <Boton 
+        action={restar} 
+        text= "restar"
+      />
+      
+    </>
+  )
+}
+
+
 
 
   ReactDOM.render(
-    <App counter={counter} />, 
+    <App />, 
     document.getElementById('root')
   ) 
 
