@@ -1,6 +1,7 @@
 
 import ReactDOM from 'react-dom'
 import React, {useState} from 'react'
+import {Marcador} from "./marcador.js"
 
 const Contador = ({contador}) => <h1>{contador}</h1>
 
@@ -25,6 +26,7 @@ const App = () => {
   return (
     <>
       <Contador contador = {counter}/>
+      
       <Boton 
         action = {incrementar} 
         text = "incrementar"
@@ -39,7 +41,8 @@ const App = () => {
         action={restar} 
         text= "restar"
       />
-      
+
+      <Marcador></Marcador>
     </>
   )
 }
