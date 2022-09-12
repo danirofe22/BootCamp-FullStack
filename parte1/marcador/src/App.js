@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import './App.css';
-const Button = ({handleClick, text}) => {
+const Button = ({handleClick, text, className}) => {
   return (
     <>
-      <button className='btn' onClick={handleClick}>{text}</button>
+      <button className={className} onClick={handleClick}>{text}</button>
     </>
   )
 }
@@ -26,8 +26,8 @@ const App =() => {
         <div className='marcador-individual'>
         <h3>LOCAL</h3>
           <h1>{local}</h1>
-          <Button handleClick={() => setLocal(local + 1)} text=" + 1 "></Button>
-          <Button handleClick={() => setLocal(local - 1)} text=" - 1 "></Button>
+          <Button handleClick={() => setLocal(local + 1)} text=" + 1 " className="btn-marcador"></Button>
+          <Button handleClick={() => setLocal(local - 1)} text=" - 1 " className="btn-marcador"></Button>
         </div>
         <div className='marcador-division'>
           <h3>VS</h3>
@@ -35,13 +35,13 @@ const App =() => {
         <div className='marcador-individual'>
           <h3>VISITANTE</h3>
           <h1>{visitante}</h1>
-          <Button handleClick={() => setVisitante(visitante + 1)} text=" + 1 "></Button>
-          <Button handleClick={() => setVisitante(visitante - 1)} text=" - 1 "></Button>
+          <Button handleClick={() => setVisitante(visitante + 1)} text=" + 1 " className="btn-marcador"></Button>
+          <Button handleClick={() => setVisitante(visitante - 1)} text=" - 1 " className="btn-marcador"></Button>
         </div>
         
       </div>
-      <div className='btn-reiniciar'>
-        <Button handleClick={reiniciarMarcador} text = "Reiniciar Marcador"></Button>
+      <div className='div-reiniciar'>
+        <Button handleClick={reiniciarMarcador} text = "Reiniciar Marcador" className="btn-reiniciar"></Button>
       </div>
     </>
   );

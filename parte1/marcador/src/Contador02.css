@@ -1,0 +1,8 @@
+.marcadores{
+    display: flex;
+}
+
+.marcador{
+    display: block;
+    max-width: 150px;
+}
