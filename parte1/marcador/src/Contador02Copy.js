@@ -12,17 +12,18 @@ const Display = ({nombreEquipo, marcador}) => {
     )
 }
 
-const Button = ({handleClick, text}) => {
-    return(
+const Button = ({handleClick, text}) => (
         <button onClick={handleClick}>{text}</button>
     )
-}
+
 
 const Historial =  ({historialGoles}) => {
     
-    const hanMarcado = historialGoles === null
+    console.log(historialGoles);
 
-    const mensaje = hanMarcado ? "La app se usa pulsando los botones" : `Historial de goles: ${historialGoles.join(' \n ')}`
+    const hanMarcado = historialGoles.length == 0
+
+    const mensaje = hanMarcado ? "La app se usa pulsando los botones" : `Historial de goles: ${historialGoles.join(' \n ')}`  
 
     return(
         <p>{mensaje}</p>
@@ -33,6 +34,7 @@ const Historial =  ({historialGoles}) => {
 const Contador02Copy = () => {
 
 
+    //Estado de la aplicacion
     const [marcador, setMarcador] = useState(
         {
             local: 0,
@@ -41,89 +43,64 @@ const Contador02Copy = () => {
         }
     )
 
+    //Informacion de quien va ganando (Comprobado con un condicional)
     const ganaLocal = marcador.local > marcador.visitante,
           ganaVisitante = marcador.visitante > marcador.local,
           quienGana = ganaLocal ? 'Va ganando el equipo local': ganaVisitante ? 'Va ganando el equipo visitante' : 'Los equipos van empatados'
 
 
-
-    const handleClickActionToLocal = (operacion) =>{
-       
-        const sumar = () => {
-            const suma = {
-                ...marcador,
-                local: marcador.local + 1,
-                historialGoles: marcador.historialGoles.concat("Local")
-            }
-            setMarcador(suma)
-        }
-        
-        const restar = () => {
-            const resta = {
-                ...marcador,
-                local: marcador.local - 1,
-                historialGoles: marcador.historialGoles.concat("Local - 1")
-            }
-            setMarcador(resta)
-        }
-        
-
-        const esSuma = operacion === "+"
-        const esResta = operacion === "-"
-        const queHacer = esSuma ? sumar : esResta ? restar : console.log("Hubo algun fallo en la ejecucion");
-
-        return queHacer
-
+    
+    //Posibles cambios del estado
+    const sumaLocal = {
+        ...marcador,
+        local: marcador.local + 1,
+        historialGoles: marcador.historialGoles.concat("Local")
     }
 
-
-
-
-    const handleLocalAdditionClick = () =>{
-        const newMarcador = {
-            ...marcador,
-            local: marcador.local + 1,
-            historialGoles: marcador.historialGoles.concat("Local")
-        }
-        setMarcador(newMarcador)
+    const restaLocal = {
+        ...marcador,
+        local: marcador.local - 1,
+        historialGoles: marcador.historialGoles.concat("Local - 1")
     }
 
-    const handleVisitanteAdditionClick = () =>{
+    const sumaVisitante = {
+        ...marcador,
+        visitante: marcador.visitante + 1,
+        historialGoles: marcador.historialGoles.concat("Visitante")
+    }
 
-        const sumar = {
-            ...marcador,
-            visitante: marcador.visitante + 1,
-            historialGoles: marcador.historialGoles.concat("Visitante")
-        }
+    const restaVisitante = {
+        ...marcador,
+        visitante: marcador.visitante - 1,
+        historialGoles: marcador.historialGoles.concat("Visitante - 1")
+    }
 
-        setMarcador(sumar)
-        
+    const handleClickMarcador = (operacion) => () => {
+        setMarcador(operacion)
     }
 
     const handleReiniciarClick = () => {
         const newMarcador = {
             local: 0,
             visitante: 0,
-            historialGoles: null
+            historialGoles: []
         }
         setMarcador(newMarcador)
     }
-
-    /* const sumarAVisitante = handleVisitanteAdditionClick('+')
-    const restarAVisitante = handleVisitanteAdditionClick('-') */
-    
+ 
     return(
         <>
             <div className="marcadores">
                 <div className="marcador">
                     <Display nombreEquipo={"Local"} marcador={marcador.local}/>
-                    <Button handleClick={handleClickActionToLocal("+")} text ={"+1"}/> 
-                    <Button handleClick={handleClickActionToLocal("-")} text ={"-1"}/> 
+                    <Button handleClick={handleClickMarcador(sumaLocal)} text ={"+1"}/> 
+                    <Button handleClick={handleClickMarcador(restaLocal)} text ={"-1"}/> 
                     
                 </div>
                 <div className="marcador">
                     <Display nombreEquipo={"Visitante"} marcador={marcador.visitante}/>
-                    <Button handleClick={handleVisitanteAdditionClick} text ={"+1"}/> 
+                    <Button handleClick={handleClickMarcador(sumaVisitante)} text ={"+1"}/> 
+                    <Button handleClick={handleClickMarcador(restaVisitante)} text ={"-1"}/> 
                     
                 </div>
             </div>
