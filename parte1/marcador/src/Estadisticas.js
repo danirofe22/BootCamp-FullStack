@@ -1,12 +1,15 @@
 import { useState } from "react";
 
+//Componente para representar un boton con un text y un handle click
 const Button = ({handleClick, text}) => (
     <button onClick={handleClick}>{text}</button>
 )
 
+//Componente para mostrar una estadistica
 const Estadistica = ({votos, text}) => {
     
     return(
+        //Muestra la estadistica en un fila para la tabla final
         <tr>
             <th><strong>{text}</strong></th>
             <th>{votos}</th> 
@@ -14,8 +17,20 @@ const Estadistica = ({votos, text}) => {
     )
 }
 
-const Estadisticas = ({estadisticas, votosTotales, average}) => {
-    if (votosTotales == 0) {
+//componente que muestra un conjunto de estadisticas en una tabla 
+const Estadisticas = ({estadisticas}) => {
+    
+
+    const votosTotales = estadisticas.good + estadisticas.neutral + estadisticas.bad
+    
+    const average = (votosTotales !== 0) ? (estadisticas.good - estadisticas.bad) / votosTotales : 0
+
+    const porcentajePositivos = ((estadisticas.good / votosTotales) * 100) + "%"
+
+    
+
+
+    if (votosTotales === 0) {
         return (
             <p>No se ha dado el feedback para poder mostrar la estadistica</p>
         )
@@ -36,6 +51,7 @@ const Estadisticas = ({estadisticas, votosTotales, average}) => {
                 <Estadistica votos = {estadisticas.bad} text={"Malo => "}></Estadistica>
                 <Estadistica votos = {votosTotales} text={"Votos Totales => "}></Estadistica>
                 <Estadistica votos = {average} text={"Media => "}></Estadistica>
+                <Estadistica votos = {porcentajePositivos} text={"Positivos => "}></Estadistica>
             </tbody>
             
         </table>
@@ -85,13 +101,8 @@ const AppEstadistica = () => {
         return votar
     }
 
-    const votosTotales = estadisticas.good + estadisticas.neutral + estadisticas.bad
     
-    let average = 0
-
-    if(votosTotales != 0){
-        average = (estadisticas.good - estadisticas.bad) / votosTotales
-    }
+    
     
     
 
@@ -104,7 +115,7 @@ const AppEstadistica = () => {
             <Button handleClick={handleClickVotar(votarBad)} text = {"Malo"}></Button>
 
             
-            <Estadisticas estadisticas = {estadisticas} votosTotales = {votosTotales} average = {average}></Estadisticas>
+            <Estadisticas estadisticas = {estadisticas}></Estadisticas>
             <h4><Button handleClick={handleClickVotar(reiniciar)} text = {"REINICIAR"}></Button></h4>
         </>
     )
